@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'spotify' => [
+        'token_time' => env('SPOTIFY_TOKEN_TIME'),
+        'auth_url' => env('SPOTIFY_AUTH_URL'),
+        'search_url' => env('SPOTIFY_SEARCH_URL'),
+        'client_id' => env('SPOTIFY_CLIENT_ID'),
+        'client_secret' => env('SPOTIFY_CLIENT_SECRET'),
+    ],
+
 ];
