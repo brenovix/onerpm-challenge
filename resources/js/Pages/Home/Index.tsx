@@ -2,9 +2,10 @@ import React from "react";
 import { Head } from "@inertiajs/react";
 import DataTable from "@/Components/DataTable";
 import AudioPlayer from "@/Components/AudioPlayer";
+import ExternalURL from "@/Components/ExternalLink";
 
 interface TrackListProps {
-  tracks: Track[];
+  tracks: TrackResponse[];
 }
 
 const TrackList: React.FC<TrackListProps> = () => {
@@ -18,14 +19,14 @@ const TrackList: React.FC<TrackListProps> = () => {
           columns={[
             { key: "isrc", label: "ISRC", sortable: false },
             { key: "title", label: "Title", sortable: false },
-            { key: "album.title", label: "Album", sortable: false },
+            { key: "album_title", label: "Album", sortable: false },
             { key: "artists", label: "Artists", sortable: false },
-            { key: "album.releaseDate", label: "Release Date", sortable: false },
-            { key: "album.cover", label: "Cover", sortable: false, render: (cover) => <img src={cover} alt="Album Cover" className="w-12 h-12 object-cover" /> },
-            { key: "duration", label: "Duration", sortable: false, render: (duration) => new Date(duration * 1000).toISOString().substring(14, 5) },
-            { key: "brEnabled", label: "Enabled in Brazil", sortable: false },
-            { key: "previewUrl", label: "Preview", sortable: false, render: async (track) => AudioPlayer({ track }) },
-            { key: "externalUrl", label: "Track Page", sortable: false },
+            { key: "release_date", label: "Release Date", sortable: false, render: (date) => new Date(date).toLocaleDateString() },
+            { key: "cover", label: "Cover", sortable: false, render: (cover) => <img src={cover} alt="Album Cover" className="w-14 h-14 object-cover" /> },
+            { key: "duration", label: "Duration", sortable: false, render: (duration) => new Date(duration * 1000).toISOString().substring(14, 19) },
+            { key: "br_enabled", label: "Enabled in Brazil", sortable: false },
+            { key: "preview_url", label: "Preview", sortable: false, render: (previewUrl, track) => <AudioPlayer track={track} /> },
+            { key: "external_url", label: "Track Page", sortable: false, render: (externalUrl) => <ExternalURL url={externalUrl} /> },
           ]}
         />
       </div>

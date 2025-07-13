@@ -20,7 +20,10 @@ class TrackService
 
     public function list()
     {
-        return $this->trackRepository->list();
+        return $this->trackRepository->list()->map(function ($track) {
+            $track->br_enabled = boolval($track->br_enabled);
+            return $track;
+        })->toArray();
     }
 
     public function getDataFromStreamingService(string $isrc): ?Track

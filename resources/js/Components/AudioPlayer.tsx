@@ -2,7 +2,7 @@ import { Pause, Play } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 
 type PlayerProps = {
-  track?: Track
+  track?: TrackResponse;
 };
 
 const AudioPlayer: React.FC<PlayerProps> = ({ track }) => {
@@ -10,13 +10,14 @@ const AudioPlayer: React.FC<PlayerProps> = ({ track }) => {
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const isDisabled = !track || !track.previewUrl;
+  const isDisabled = !track || !track.preview_url;
 
   useEffect(() => {
-    if (track && track.previewUrl) {
+    if (track && track.preview_url) {
       if (!audioRef.current) {
-        audioRef.current = new Audio(track.previewUrl);
+        audioRef.current = new Audio(track.preview_url);
       }
+
       if (isPlaying) {
         audioRef.current.pause();
         setIsPlaying(false);
@@ -57,9 +58,9 @@ const AudioPlayer: React.FC<PlayerProps> = ({ track }) => {
         : 'bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-400'}`} 
       aria-label={isPlaying ? 'Pause Track' : 'Play Track'} onClick={handleClick} disabled={isDisabled}>
         {isPlaying ? (
-        <Pause className="w-8 h-8" />
+        <Pause className="w-6 h-6" />
       ) : (
-        <Play className="w-8 h-8" />
+        <Play className="w-6 h-6" />
       )}
     </button>
   )

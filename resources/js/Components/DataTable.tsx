@@ -21,12 +21,6 @@ type DataTableProps = {
 
 type ApiResponse = {
   data: any[];
-  total: number;
-  per_page: number;
-  current_page: number;
-  last_page: number;
-  from: number;
-  to: number;
 }
 
 interface DataTableState {
@@ -83,6 +77,7 @@ const DataTable: React.FC<DataTableProps> = ({
       setState(prev => ({
         ...prev,
         data: result.data,
+        filteredData: result.data,
         loading: false,
       }));
       onDataChange?.(result.data);
@@ -245,7 +240,7 @@ const DataTable: React.FC<DataTableProps> = ({
           <button 
             onClick={handleRefresh}
             disabled={state.refreshing}
-            className='btn-primary text-sm'
+            className='btn-primary text-sm cursor-pointer'
             >
               <RefreshCw className={`h-4 w-4 mr-2 ${state.refreshing ? 'animate-spin' : ''}`} />
               { state.refreshing ? 'Refreshing...' : 'Refresh' }
@@ -261,7 +256,7 @@ const DataTable: React.FC<DataTableProps> = ({
                 {headings.map(header => (
                   <th
                     key={header.key}
-                    className={`table-header-cell ${header.sortable !== false ? 'cursor-pointer hover:bg-gray-100' : ''}`}
+                    className={`table-header-cell p-2 ${header.sortable !== false ? 'cursor-pointer hover:bg-gray-100' : ''}`}
                     onClick={() => header.sortable !== false && handleSort(header.key)}
                   >
                     <div className="flex items-center space-x-1">
@@ -283,17 +278,10 @@ const DataTable: React.FC<DataTableProps> = ({
               {state.filteredData.map((row: any, index: number) => (
                 <tr key={row.id || index} className="hover:bg-gray-50 transition-colors">
                   {headings.map(col => (
-                    <td key={col.key} className={`table-cell ${col.className || ''}`}>
+                    <td key={col.key} className={`table-cell ${col.className || ''} p-2`}>
                       {renderCell(col, row)}
                     </td>
                   ))}
-                  {actions && (
-                    <td className="table-cell">
-                      <div className='flex items-center space-x-2'>
-                        {actions(row)}
-                      </div>
-                    </td>
-                  )}
                 </tr>
               ))}
             </tbody>

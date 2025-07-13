@@ -1,27 +1,13 @@
-
-
-type Artist = {
-  id: number;
-  name: string;
-}
-
-type Album = {
-  id: number;
-  title: string;
-  artists: Artist[];
-  cover: string;
-  releaseDarte: string;
-  externalUrl: string;
-}
-
-type Track = {
+type TrackResponse = {
   id: number;
   isrc: string;
   title: string;
-  artists: Artist[];
-  album: Album;
+  album_title: string;
+  artists: string;
+  release_date: string;
+  cover: string;
   duration: number;
-  externalUrl: string;
-  brEnabled: boolean;
-  previewUrl: string;
+  br_enabled: boolean;
+  preview_url: string | null;
+  external_url: string;
 }
