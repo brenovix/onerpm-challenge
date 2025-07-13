@@ -6,7 +6,7 @@
 
         <title>{{ config('app.name') }}</title>
         @viteReactRefresh
-        @vite(['resources/css/app.css', 'resources/js/app.tsx'])
+        @vite(['resources/css/app.css', 'resources/js/app.jsx'])
         @inertiaHead
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Fonts -->
