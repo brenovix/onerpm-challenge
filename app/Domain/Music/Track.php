@@ -24,7 +24,7 @@ class Track extends Entity
         private ?string $previewUrl = null,
         ?int $id = null
     ) {
-        $this->artists = array_map(fn($artist) => new Artist($artist), $artists);
+        $this->artists = array_map(fn($artist) => $artist instanceof Artist ? $artist : new Artist($artist), $artists);
         $this->id = $id;
     }
 
@@ -88,8 +88,8 @@ class Track extends Entity
             isrc: new ISRC($data['isrc']),
             title: $data['title'],
             duration: new Duration($data['duration']),
-            artists: array_map(fn($artist) => new Artist($artist), $data['artists']),
-            album: new Album(
+            artists: array_map(fn($artist) => $artist instanceof Artist ? $artist : new Artist($artist), $data['artists']),
+            album: $data['album'] instanceof Album ? $data['album'] : new Album(
                 $data['album']['title'],
                 $data['album']['cover'],
                 new DateTime($data['album']['release_date']),

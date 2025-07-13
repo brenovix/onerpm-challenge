@@ -43,7 +43,7 @@ class SpotifyAPIService implements StreamingApiServiceInterface
 
     private function parseData($data): ?Track
     {
-        if (!array_key_exists('items', $data) || empty($data['items'])) {
+        if (empty($data) || !array_key_exists('items', $data) || empty($data['items'])) {
             return null;
         }
         $item = $data['items'][0];

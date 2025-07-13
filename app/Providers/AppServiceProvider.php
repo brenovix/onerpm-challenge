@@ -11,7 +11,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        //Bind SpotifyApiService to StreamingApiService
+        $this->app->bind(
+            \App\Services\Contracts\StreamingApiServiceInterface::class,
+            \App\Services\SpotifyApiService::class
+        );
     }
 
     /**

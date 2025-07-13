@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class IsrcSyncService
 {
     public function __construct(
-        private TrackRepository $trackRepository,
+        private TrackService $trackService,
         private MissingIsrcRepository $missingIsrcRepository,
         private StreamingApiServiceInterface $streamingApiService
     ) {
@@ -19,7 +19,7 @@ class IsrcSyncService
 
     public function syncIsrc(string $isrc): ?Track
     {
-        $track = $this->trackRepository->getByIsrc($isrc);
+        $track = $this->trackService->searchByIsrc($isrc);
         
         if ($track) {
             return $track;
@@ -39,7 +39,7 @@ class IsrcSyncService
 
     private function processSingleIsrc(string $isrc): void
     {
-        if ($this->trackRepository->getByIsrc($isrc)) {
+        if ($this->trackService->searchByIsrc($isrc)) {
             $this->missingIsrcRepository->delete($isrc);
             return;
         }
@@ -52,7 +52,7 @@ class IsrcSyncService
 
     private function storeTrackAndMarkAsProcessed(Track $track): void
     {
-        $this->trackRepository->insert($track);
+        $this->trackService->store($track);
         $this->missingIsrcRepository->delete($track->getIsrc());
     }
 }

@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Domain\Music\Album;
 use App\Domain\Music\Artist;
-use App\Domain\Music\Track;
 use Illuminate\Support\Facades\DB;
 
 class TrackRepository extends Repository
@@ -21,8 +19,8 @@ class TrackRepository extends Repository
     public function list()
     {
         return $this->query()
-            ->join('tracks_artists as TA', 'TA.track_id', '=', 'T.id')
-            ->join('artists as Ar', 'Ar.id', '=', 'TA.artist_id')
+            ->join('artists_tracks as AT', 'AT.track_id', '=', 'T.id')
+            ->join('artists as Ar', 'Ar.id', '=', 'AT.artist_id')
             ->join('albums as Al', 'Al.id', '=', 'T.album_id')
             ->orderBy('T.title')
             ->select([
@@ -41,6 +39,6 @@ class TrackRepository extends Repository
             'track_id' => $id,
             'artist_id' => $artist->getId()
         ];
-        return DB::table('tracks_artists')->insert($data);
+        return DB::table('artists_tracks')->insert($data);
     }
 }

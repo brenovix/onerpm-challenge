@@ -14,8 +14,7 @@ class TrackService
         private TrackRepository $trackRepository,
         private StreamingApiServiceInterface $streamingApiService, 
         private ArtistService $artistService,
-        private AlbumService $albumService,
-        private IsrcSyncService $isrcSyncService
+        private AlbumService $albumService
     ) {
     }
 
@@ -36,9 +35,9 @@ class TrackService
         return Track::fromArray($persistedData);
     }
 
-    public function syncMissingIsrc(): void
+    public function searchByIsrc(string $isrc): ?Track
     {
-        $this->isrcSyncService->syncMissingIsrc();
+        return $this->trackRepository->getByIsrc($isrc);
     }
 
     private function persist(Track $track): array
