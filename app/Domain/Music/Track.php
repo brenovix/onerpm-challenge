@@ -28,6 +28,11 @@ class Track extends Entity
         $this->id = $id;
     }
 
+    public function getIsrc(): ISRC
+    {
+        return $this->isrc;
+    }
+
     public function getTitle(): string
     {
         return $this->title;

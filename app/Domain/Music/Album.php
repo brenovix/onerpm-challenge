@@ -42,7 +42,7 @@ class Album extends Entity
         return $this->externalUrl;
     }
 
-    public function getArtist(): array
+    public function getArtists(): array
     {
         return $this->artists;
     }

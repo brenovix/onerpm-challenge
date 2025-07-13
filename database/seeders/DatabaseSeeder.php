@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        DB::table('missing_isrcs')->insert([
+            ['code' => 'US7VG1846811'],
+            ['code' => 'US7QQ1846811'],
+            ['code' => 'BRC310600002'],
+            ['code' => 'BR1SP1200071'],
+            ['code' => 'BR1SP1200070'],
+            ['code' => 'BR1SP1500002'],
+            ['code' => 'BXKZM1900338'],
+            ['code' => 'BXKZM1900345'],
+            ['code' => 'QZNJX2081700'],
+            ['code' => 'QZNJX2078148'],
         ]);
     }
 }
