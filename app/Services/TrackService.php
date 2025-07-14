@@ -22,6 +22,7 @@ class TrackService
     {
         return $this->trackRepository->list()->map(function ($track) {
             $track->br_enabled = boolval($track->br_enabled);
+            $track->artists = json_decode($track->artists);
             return $track;
         })->toArray();
     }

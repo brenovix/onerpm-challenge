@@ -9,6 +9,7 @@ use App\Domain\Music\ValueObject\Duration;
 use App\Domain\Music\ValueObject\ISRC;
 use App\Services\Contracts\StreamingApiServiceInterface;
 use DateTime;
+use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -29,6 +30,9 @@ class SpotifyAPIService implements StreamingApiServiceInterface
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->getToken()
         ])->get(config('services.spotify.search_url') . '?' . $query);
+        if ($response->failed()) {
+            throw new Exception($data['error']['message'] ?? 'Failed to fetch data from Spotify API', $response->status());
+        }
         return $this->parseData($response->json('tracks'));
     }
 

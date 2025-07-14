@@ -20,13 +20,13 @@ const TrackList: React.FC<TrackListProps> = () => {
             { key: "isrc", label: "ISRC", sortable: false },
             { key: "title", label: "Title", sortable: false },
             { key: "album_title", label: "Album", sortable: false },
-            { key: "artists", label: "Artists", sortable: false },
-            { key: "release_date", label: "Release Date", sortable: false, render: (date) => new Date(date).toLocaleDateString() },
-            { key: "cover", label: "Cover", sortable: false, render: (cover) => <img src={cover} alt="Album Cover" className="w-14 h-14 object-cover" /> },
-            { key: "duration", label: "Duration", sortable: false, render: (duration) => new Date(duration * 1000).toISOString().substring(14, 19) },
-            { key: "br_enabled", label: "Enabled in Brazil", sortable: false },
-            { key: "preview_url", label: "Preview", sortable: false, render: (previewUrl, track) => <AudioPlayer track={track} /> },
-            { key: "external_url", label: "Track Page", sortable: false, render: (externalUrl) => <ExternalURL url={externalUrl} /> },
+            { key: "artists", label: "Artists", sortable: false, render: (artists) => artists.join(", ") },
+            { key: "release_date", label: "Release Date", sortable: false, render: (date) => new Date(date).toLocaleDateString(), className: "text-center" },
+            { key: "cover", label: "Cover", sortable: false, render: (cover) => <img src={cover} alt="Album Cover" className="w-14 h-14 object-cover" />, className: "text-center" },
+            { key: "duration", label: "Duration", sortable: false, render: (duration) => new Date(duration * 1000).toISOString().substring(14, 19), className: "text-center" },
+            { key: "br_enabled", label: "Enabled in Brazil", sortable: false, className: "text-center" },
+            { key: "preview_url", label: "Preview", sortable: false, render: (previewUrl, track) => <AudioPlayer track={track} />, className: "justify-items-center" },
+            { key: "external_url", label: "Track Page", sortable: false, render: (externalUrl) => <div><ExternalURL url={externalUrl} /></div>, className: "justify-items-center" },
           ]}
         />
       </div>

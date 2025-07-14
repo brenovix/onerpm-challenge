@@ -28,7 +28,7 @@ class TrackRepository extends Repository
                 'Al.title as album_title',
                 'Al.cover',
                 'Al.release_date',
-                DB::raw("GROUP_CONCAT(Ar.name) as artists")
+                DB::raw("JSON_ARRAYAGG(Ar.name) as artists")
             ])
             ->groupBy('T.id')->distinct()->get();
     }
