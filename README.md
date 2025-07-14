@@ -1,4 +1,16 @@
+# Instalação
+
+* Baixar do Github
+* Criar uma copia do arquivo `.env.example` e renomear para `.env`
+* Inserir variaveis relacionadas ao DB e a API do Spotify
+* Rodar comando `composer install`
+* Rodar comando `npm i`
+
+--
+
+
 ## Início
+
 
 Bem vindo ao mundo da música!
 
