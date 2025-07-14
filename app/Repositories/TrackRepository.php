@@ -12,7 +12,18 @@ class TrackRepository extends Repository
     public function getByIsrc(string $isrc)
     {
         return $this->query()
+            ->join('artists_tracks as AT', 'AT.track_id', '=', 'T.id')
+            ->join('artists as Ar', 'Ar.id', '=', 'AT.artist_id')
+            ->join('albums as Al', 'Al.id', '=', 'T.album_id')
             ->where('isrc', $isrc)
+            ->select([
+                'T.*',
+                'Al.title as album_title',
+                'Al.cover',
+                'Al.release_date',
+                DB::raw("JSON_ARRAYAGG(Ar.name) as artists")
+            ])
+            ->groupBy('T.id')
             ->first();
     }
 

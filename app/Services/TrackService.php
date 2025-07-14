@@ -41,7 +41,19 @@ class TrackService
 
     public function searchByIsrc(string $isrc): ?Track
     {
-        return $this->trackRepository->getByIsrc($isrc);
+        $track = $this->trackRepository->getByIsrc($isrc);
+        if (!$track) {
+            return null;
+        }
+        $track->artists = json_decode($track->artists, true);
+        $track->album = [
+            'id' => $track->album_id,
+            'title' => $track->album_title,
+            'cover' => $track->cover,
+            'release_date' => $track->release_date,
+            'artists' => $track->artists,
+        ];
+        return Track::fromArray(json_decode(json_encode($track), true));
     }
 
     private function persist(Track $track): array

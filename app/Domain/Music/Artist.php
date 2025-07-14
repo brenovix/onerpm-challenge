@@ -23,6 +23,11 @@ class Artist extends Entity
         ];
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public static function fromArray(array $data): self
     {
         return new self(

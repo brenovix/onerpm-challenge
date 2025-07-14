@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('missing_isrcs')->truncate();
         DB::table('missing_isrcs')->insert([
             ['code' => 'US7VG1846811'],
             ['code' => 'US7QQ1846811'],

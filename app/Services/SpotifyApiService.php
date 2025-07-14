@@ -31,7 +31,7 @@ class SpotifyAPIService implements StreamingApiServiceInterface
             'Authorization' => 'Bearer ' . $this->getToken()
         ])->get(config('services.spotify.search_url') . '?' . $query);
         if ($response->failed()) {
-            throw new Exception($data['error']['message'] ?? 'Failed to fetch data from Spotify API', $response->status());
+            throw new Exception($response->json('error.message') ?? 'Failed to fetch data from Spotify API', $response->status());
         }
         return $this->parseData($response->json('tracks'));
     }
